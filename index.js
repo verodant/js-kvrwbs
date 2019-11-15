@@ -8,23 +8,17 @@ const options = {
   rootMargin: "-10%",
   threshold: [0, 1]
 };
-let left = true;
-let right = true;
+
+const ways = {
+  left: true,
+  right: true
+};
 
 const callback = entries =>
   entries.forEach(entry => {
     const DIRECTION = entry.boundingClientRect.left > 0 ? "left" : "right";
-    console.log(DIRECTION)
-    const pageToRemove =
-      DIRECTION == "left"
-        ? 2
-        : 0; 
-    
-    if (DIRECTION == "left") left = !left;
-    if (DIRECTION == "right") right = !right;
-    
-    console.log("left->", left);
-    console.log("right->", right);
+    const pageToRemove = DIRECTION == "left" ? 2 : 0;
+    ways[DIRECTION] = !ways[DIRECTION];
   });
 
 observer = new IntersectionObserver(callback, options);
