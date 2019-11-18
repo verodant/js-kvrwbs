@@ -1,12 +1,14 @@
-container = document.querySelector("ul");
+const container = document.querySelector("ul");
 
 /*TODO estos valores los calcularemos con cuantos swipes queremos precargar*/
-const actual = container.children[2];
+console.log(container.children[container.children.length - 1])
+const actualR = container.children[container.children.length - 1];
+const actualL = container.children[1];
 
 const options = {
   root: container,
-  rootMargin: "-10%",
-  threshold: [0, 1]
+  rootMargin: "0%",
+  threshold: [.5]
 };
 
 const ways = {
@@ -19,7 +21,9 @@ const callback = entries =>
     const DIRECTION = entry.boundingClientRect.left > 0 ? "left" : "right";
     const pageToRemove = DIRECTION == "left" ? 2 : 0;
     ways[DIRECTION] = !ways[DIRECTION];
+    console.log(ways)
   });
 
 observer = new IntersectionObserver(callback, options);
-observer.observe(actual);
+observer.observe(actualR);
+observer.observe(actualL);
